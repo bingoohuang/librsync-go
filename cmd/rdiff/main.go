@@ -10,7 +10,14 @@ import (
 func main() {
 	app := cli.NewApp()
 	app.Name = "rdiff"
-	app.Usage = "binary diff utility based on librsync-go"
+	app.Usage = `binary diff utility based on librsync-go
+
+DEMO:
+rdiff signature file1 file1-signature
+rdiff delta file1-signature file2 file1-file2-delta
+rdiff patch file1 file1-file2-delta file3
+diff -s file2 file3`
+
 	app.Version = "v0.0.1"
 	app.Author = "Petros Angelatos"
 	app.Email = "petrosagg@gmail.com"
@@ -18,6 +25,7 @@ func main() {
 	app.Commands = []cli.Command{
 		{
 			Name:      "signature",
+			Aliases:   []string{"sign"},
 			Usage:     "creates a signature of the input file",
 			ArgsUsage: "BASIS SIGNATURE",
 			Action:    CommandSignature,
